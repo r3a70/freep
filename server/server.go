@@ -2,6 +2,8 @@ package server
 
 import (
 	"fmt"
+	"freep.space/fsp/internals"
+	"freep.space/fsp/middlewares"
 	"log"
 	"net/http"
 )
@@ -12,14 +14,14 @@ func Serve(address string) {
 	homePage := http.FileServer(http.Dir("./static"))
 
 	// Registering Handlers
-	http.Handle("/", homePage)
+	http.Handle("/", middlewares.Logger(homePage))
 
 	// Show To user that the server is run properly
-	fmt.Println("Starting freep server at :8000")
+	fmt.Println(internals.GREEN + "Freep Web server is running on :8000" + internals.RESET)
 
 	// listen and serve server at given address
 	err := http.ListenAndServe(address, nil)
 	if err != nil {
-		log.Fatalf("There was a problem while running Freep server. the error is %v\n", err)
+		log.Fatalf(internals.RED+"There was a problem while running Freep server. the error is %v\n"+internals.RESET, err)
 	}
 }
