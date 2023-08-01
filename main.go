@@ -1,6 +1,8 @@
 package main
 
-import "freep.space/fsp/server"
+import (
+	"freep.space/fsp/server"
+)
 
 const (
 	ADDRESS string = ":8000"

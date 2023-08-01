@@ -2,10 +2,11 @@ package server
 
 import (
 	"fmt"
-	"freep.space/fsp/internals"
-	"freep.space/fsp/middlewares"
 	"log"
 	"net/http"
+
+	"freep.space/fsp/internals"
+	"freep.space/fsp/middlewares"
 )
 
 func Serve(address string) {
