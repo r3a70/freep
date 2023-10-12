@@ -6,7 +6,9 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"regexp"
 
+	"freep.space/fsp/telegram"
 	"github.com/google/uuid"
 )
 
@@ -44,7 +46,8 @@ func Upload(w http.ResponseWriter, r *http.Request) {
 
 	var nBytes, nChunks int = 0, 0
 
-	fileName := "./downloads/" + uuid.New().String() + "_" + headers.Filename
+	rg := regexp.MustCompile(`[^A-Za-z0-9.-_]`)
+	fileName := "./downloads/" + uuid.New().String() + "_" + rg.ReplaceAllString(headers.Filename, "_")
 	createdFile, err := os.Create(fileName)
 	if err != nil {
 		log.Println(err)
@@ -83,10 +86,13 @@ func Upload(w http.ResponseWriter, r *http.Request) {
 
 	writer.Flush()
 
-	if _, err := w.Write([]byte("File SuccessFully Uploaded\n")); err != nil {
+	downloadUrl := telegram.UploadToTelegram(fileName)
+
+	if _, err := w.Write([]byte(downloadUrl + "\n")); err != nil {
 		log.Println(err)
 	}
-
-	return
+	if err := os.Remove(fileName); err != nil {
+		log.Println(err)
+	}
 
 }
