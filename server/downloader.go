@@ -17,6 +17,7 @@ func Download(w http.ResponseWriter, r *http.Request) {
 	fileID := strings.ReplaceAll(r.URL.String(), "/download/", "")
 
 	downloadPath := telegram.DownloadFromTelegram(fileID)
+	defer os.Remove(downloadPath)
 
 	resp, err := os.Open(downloadPath)
 
@@ -41,5 +42,4 @@ func Download(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	defer os.Remove(downloadPath)
 }
