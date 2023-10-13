@@ -14,8 +14,6 @@ func UploadToTelegram(file string) string {
 		log.Panic(err)
 	}
 
-	bot.Debug = true
-
 	newFile := tgbotapi.FilePath(file)
 	newDoc := tgbotapi.NewDocument(1302633753, newFile)
 	if res, err := bot.Send(newDoc); err != nil {

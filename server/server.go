@@ -18,10 +18,12 @@ func Serve(address string) {
 
 	// Add handlers
 	uploadHandler := http.HandlerFunc(Upload)
+	downloadHandler := http.HandlerFunc(Download)
 
 	// Registering Handlers
 	mux.Handle("/", middlewares.Logger(middlewares.Security(homePage)))
 	mux.Handle("/upload", middlewares.Logger(middlewares.Security(uploadHandler)))
+	mux.Handle("/download/", middlewares.Logger(middlewares.Security(downloadHandler)))
 
 	// Show To user that the server is run properly
 	fmt.Println(internals.GREEN + "Freep Web server is running on http://0.0.0.0:8000" + internals.RESET)
