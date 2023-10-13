@@ -1,10 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 <head>
-    <meta charset="UTF-8">
-    <title>Freep is For Free People</title>
-    <img src="./freep-logo.jpg" alt="The FreeP Logo">
+  <meta charset="UTF-8">
+  <title>FreeP</title>
+  <link rel="stylesheet" href="./style.css">
 </head>
 <body>
+<!-- partial:index.partial.html -->
+<div class="container">
+  <form class="form" action="/upload" method="POST" enctype="multipart/form-data">
+    <div class="file-upload-wrapper" data-text="Select your file!">
+      <input name="file-upload-field" type="file" class="file-upload-field" value="">
+    </div>
+      <input type="submit">
+  </form>
+</div>
+
+<img src="./freep-logo.jpg" alt="Spruce CSS Framework">
 </body>
 </html>
