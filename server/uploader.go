@@ -8,18 +8,24 @@ import (
 	"os"
 	"regexp"
 
+	"freep.space/fsp/internals"
 	"freep.space/fsp/telegram"
 	"github.com/google/uuid"
 )
-
-// Max file size is 10 MB
-const ALLOW_FILE_SZIE = 50 * 1024 * 1024
 
 func Upload(w http.ResponseWriter, r *http.Request) {
 
 	defer r.Body.Close()
 
-	if r.ContentLength > ALLOW_FILE_SZIE {
+	if r.Method != "POST" {
+		w.WriteHeader(http.StatusMethodNotAllowed)
+		if _, err := w.Write([]byte("Method Not Allowed\n")); err != nil {
+			log.Println(err)
+		}
+		return
+	}
+
+	if r.ContentLength > internals.ALLOW_FILE_SZIE {
 		w.WriteHeader(http.StatusForbidden)
 		if _, err := w.Write([]byte("Allowed size is 50MB\n")); err != nil {
 			log.Println(err)
@@ -28,7 +34,12 @@ func Upload(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err := r.ParseMultipartForm(50 << 20); err != nil {
-		log.Println(err)
+		w.WriteHeader(http.StatusUnsupportedMediaType)
+		if _, err := w.Write([]byte("UnAllowed\n")); err != nil {
+			log.Println(err)
+		}
+		return
+
 	}
 
 	var formFile string
@@ -91,8 +102,11 @@ func Upload(w http.ResponseWriter, r *http.Request) {
 	if _, err := w.Write([]byte(downloadUrl + "\n")); err != nil {
 		log.Println(err)
 	}
-	if err := os.Remove(fileName); err != nil {
-		log.Println(err)
-	}
+
+	defer func() {
+		if err := os.Remove(fileName); err != nil {
+			log.Println(err)
+		}
+	}()
 
 }

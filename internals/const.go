@@ -11,3 +11,6 @@ const (
 	GRAY   = "\033[37m"
 	WHITE  = "\033[97m"
 )
+
+// Max file size is 10 MB
+const ALLOW_FILE_SZIE = 50 * 1024 * 1024

@@ -20,7 +20,7 @@ func UploadToTelegram(file string) string {
 		log.Println(err)
 	} else {
 		// url, _ := bot.GetFileDirectURL(res.Document.FileID)
-		return "http://localhost:8000/download/" + res.Document.FileID
+		return "http://0.0.0.0:8000/download/" + res.Document.FileID
 	}
 
 	return ""
