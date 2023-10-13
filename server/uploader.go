@@ -2,6 +2,7 @@ package server
 
 import (
 	"bufio"
+	"fmt"
 	"io"
 	"log"
 	"net/http"
@@ -27,18 +28,13 @@ func Upload(w http.ResponseWriter, r *http.Request) {
 
 	if r.ContentLength > internals.ALLOW_FILE_SZIE {
 		w.WriteHeader(http.StatusForbidden)
-		if _, err := w.Write([]byte("Allowed size is 50MB\n")); err != nil {
+		if _, err := w.Write([]byte("Allowed size is " + fmt.Sprint(internals.ALLOW_FILE_SZIE/1024/1024, "MB\n"))); err != nil {
 			log.Println(err)
 		}
 		return
 	}
 
 	if err := r.ParseMultipartForm(internals.MULTY_PART_MAX_SIZE); err != nil {
-		w.WriteHeader(http.StatusUnsupportedMediaType)
-		if _, err := w.Write([]byte("UnAllowed\n")); err != nil {
-			log.Println(err)
-		}
-		return
 
 	}
 
