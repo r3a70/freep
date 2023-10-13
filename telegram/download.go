@@ -18,13 +18,13 @@ func DownloadFromTelegram(fileID string) string {
 		log.Panic(err)
 	}
 
-	if res, err := bot.GetFileDirectURL(fileID); err != nil {
+	if res, err := bot.GetFile(tgbotapi.FileConfig{FileID: fileID}); err != nil {
 
 		log.Println(err)
 
 	} else {
 
-		return res
+		return res.FilePath
 	}
 
 	return ""
