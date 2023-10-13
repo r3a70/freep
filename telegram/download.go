@@ -9,12 +9,16 @@ import (
 
 func DownloadFromTelegram(fileID string) string {
 
-	bot, err := tgbotapi.NewBotAPI(os.Getenv("TELEGRAM_BOT_TOKEN"))
+	bot, err := tgbotapi.NewBotAPI(
+		os.Getenv("TELEGRAM_BOT_TOKEN"),
+	)
 	if err != nil {
 		log.Panic(err)
 	}
 
 	if res, err := bot.GetFileDirectURL(fileID); err != nil {
+
+		log.Println(err)
 
 	} else {
 
