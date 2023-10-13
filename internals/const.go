@@ -13,4 +13,6 @@ const (
 )
 
 // Max file size is 10 MB
-const ALLOW_FILE_SZIE = 50 * 1024 * 1024
+const ALLOW_FILE_SZIE = 20 * 1024 * 1024
+
+const MULTY_PART_MAX_SIZE = 20 << 20

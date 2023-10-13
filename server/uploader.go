@@ -33,7 +33,7 @@ func Upload(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err := r.ParseMultipartForm(50 << 20); err != nil {
+	if err := r.ParseMultipartForm(internals.MULTY_PART_MAX_SIZE); err != nil {
 		w.WriteHeader(http.StatusUnsupportedMediaType)
 		if _, err := w.Write([]byte("UnAllowed\n")); err != nil {
 			log.Println(err)

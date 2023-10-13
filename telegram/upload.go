@@ -9,8 +9,9 @@ import (
 
 func UploadToTelegram(file string) string {
 
-	bot, err := tgbotapi.NewBotAPI(
+	bot, err := tgbotapi.NewBotAPIWithAPIEndpoint(
 		os.Getenv("TELEGRAM_BOT_TOKEN"),
+		os.Getenv("TELEGRAM_BOT_API"),
 	)
 	if err != nil {
 		log.Panic(err)
@@ -21,7 +22,21 @@ func UploadToTelegram(file string) string {
 	if res, err := bot.Send(newDoc); err != nil {
 		log.Println(err)
 	} else {
-		return os.Getenv("BASE_URL") + "/download/" + res.Document.FileID
+
+		var fileID string
+		if res.Animation != nil {
+			fileID = res.Animation.FileID
+		} else if res.Audio != nil {
+			fileID = res.Audio.FileID
+		} else if res.Document != nil {
+			fileID = res.Document.FileID
+		} else if res.Photo != nil {
+			fileID = res.Photo[0].FileID
+		} else if res.Video != nil {
+			fileID = res.Video.FileID
+		}
+
+		return os.Getenv("BASE_URL") + "/download/" + fileID
 	}
 
 	return ""
