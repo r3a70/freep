@@ -35,13 +35,21 @@ func Upload(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err := r.ParseMultipartForm(internals.MULTY_PART_MAX_SIZE); err != nil {
-
 	}
 
 	var formFile string
 	for k := range r.MultipartForm.File {
 
 		formFile = k
+
+	}
+
+	if formFile == "" {
+		w.WriteHeader(http.StatusForbidden)
+		if _, err := w.Write([]byte("File not found..")); err != nil {
+			log.Println(err)
+		}
+		return
 
 	}
 

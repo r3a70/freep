@@ -1,21 +1,25 @@
 <!DOCTYPE html>
-<html lang="en" >
-<head>
-  <meta charset="UTF-8">
-  <title>FreeP</title>
-  <link rel="stylesheet" href="./style.css">
-</head>
-<body>
-<!-- partial:index.partial.html -->
-<div class="container">
-  <form class="form" action="/upload" method="POST" enctype="multipart/form-data">
-    <div class="file-upload-wrapper" data-text="Select your file!">
-      <input name="file-upload-field" type="file" class="file-upload-field" value="">
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>FreeP - Free For Free</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <h3>Upload Files</h3>
+        <div class="drop_box">
+          <header>
+            <h4>Select File here</h4>
+          </header>
+          <form action="/upload" method="POST" enctype="multipart/form-data">
+                <label for="fileID" class="btn">Select File</label>
+                <input type="file" id="fileID" name="file" style="display: none;"/>
+                <button type="submit" class="btn">Submit</button>
+          </form>
+        </div>
+      </div>
     </div>
-      <input type="submit">
-  </form>
-</div>
-
-<img src="./freep-logo.jpg" alt="Spruce CSS Framework">
-</body>
+  </body>
 </html>
