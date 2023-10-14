@@ -3,6 +3,7 @@ package server
 import (
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"os"
 	"strings"
@@ -18,6 +19,15 @@ func Download(w http.ResponseWriter, r *http.Request) {
 
 	downloadPath := telegram.DownloadFromTelegram(fileID)
 	defer os.Remove(downloadPath)
+
+	if downloadPath == "" {
+
+		w.WriteHeader(http.StatusNotFound)
+		if _, err := w.Write([]byte("File not found!!!")); err != nil {
+			log.Println(err)
+		}
+		return
+	}
 
 	resp, err := os.Open(downloadPath)
 

@@ -21,11 +21,11 @@ func DownloadFromTelegram(fileID string) string {
 	if res, err := bot.GetFile(tgbotapi.FileConfig{FileID: fileID}); err != nil {
 
 		log.Println(err)
+		return ""
 
 	} else {
 
 		return res.FilePath
 	}
 
-	return ""
 }
