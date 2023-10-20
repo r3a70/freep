@@ -13,7 +13,7 @@ func redirectToTls(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "https://freep.space"+r.RequestURI, http.StatusMovedPermanently)
 }
 
-func Serve(address string) {
+func Serve(address, addressHttp string, isOverTls bool) {
 
 	mux := http.NewServeMux()
 
@@ -33,13 +33,18 @@ func Serve(address string) {
 	fmt.Println(internals.GREEN + "Freep Web server is running on " + address + internals.RESET)
 
 	go func() {
-		if err := http.ListenAndServe(":80", http.HandlerFunc(redirectToTls)); err != nil {
+		if err := http.ListenAndServe(addressHttp, http.HandlerFunc(redirectToTls)); err != nil {
 			log.Fatalf("ListenAndServe error: %v", err)
 		}
 	}()
 
+	var err any
 	// listen and serve server at given address
-	err := http.ListenAndServeTLS(address, "freep.space.crt", "freep.space.key", mux)
+	if isOverTls {
+		err = http.ListenAndServeTLS(address, "freep.space.crt", "freep.space.key", mux)
+	} else {
+		err = http.ListenAndServe(address, mux)
+	}
 	if err != nil {
 		log.Fatalf(internals.RED+"There was a problem while running Freep server. the error is %v\n"+internals.RESET, err)
 	}

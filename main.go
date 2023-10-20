@@ -9,7 +9,9 @@ import (
 )
 
 const (
-	ADDRESS string = ":443"
+	ADDRESS     string = ":8000"
+	ADDRESSHTTP string = ":8070"
+	ISOVERTLS   bool   = false
 )
 
 func main() {
@@ -24,6 +26,6 @@ func main() {
 			log.Println(err)
 		}
 	}
-	server.Serve(ADDRESS)
+	server.Serve(ADDRESS, ADDRESSHTTP, ISOVERTLS)
 
 }
