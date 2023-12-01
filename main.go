@@ -26,6 +26,6 @@ func main() {
 			log.Println(err)
 		}
 	}
-	server.Serve(ADDRESS, ADDRESSHTTP, ISOVERTLS)
+	server.Serve(ADDRESS, ISOVERTLS)
 
 }

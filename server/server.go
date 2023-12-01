@@ -9,11 +9,7 @@ import (
 	"freep.space/fsp/middlewares"
 )
 
-func redirectToTls(w http.ResponseWriter, r *http.Request) {
-	http.Redirect(w, r, "https://freep.space"+r.RequestURI, http.StatusMovedPermanently)
-}
-
-func Serve(address, addressHttp string, isOverTls bool) {
+func Serve(address string, isOverTls bool) {
 
 	mux := http.NewServeMux()
 
@@ -31,12 +27,6 @@ func Serve(address, addressHttp string, isOverTls bool) {
 
 	// Show To user that the server is run properly
 	fmt.Println(internals.GREEN + "Freep Web server is running on " + address + internals.RESET)
-
-	go func() {
-		if err := http.ListenAndServe(addressHttp, http.HandlerFunc(redirectToTls)); err != nil {
-			log.Fatalf("ListenAndServe error: %v", err)
-		}
-	}()
 
 	var err any
 	// listen and serve server at given address
