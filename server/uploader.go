@@ -8,7 +8,6 @@ import (
 	"net/http"
 	"os"
 	"regexp"
-	"time"
 
 	"freep.space/fsp/internals"
 	"freep.space/fsp/telegram"
@@ -74,36 +73,33 @@ func Upload(w http.ResponseWriter, r *http.Request) {
 	writer := bufio.NewWriter(createdFile)
 
 	buf := make([]byte, 0, 4*1024)
-	go func(buf []byte, writer *bufio.Writer, reader *bufio.Reader) {
-		for {
-			n, err := reader.Read(buf[:cap(buf)])
-			buf = buf[:n]
-			if n == 0 {
-				if err == nil {
-					continue
-				}
-				if err == io.EOF {
-					break
-				}
-				log.Fatal(err)
+	for {
+		n, err := reader.Read(buf[:cap(buf)])
+		buf = buf[:n]
+		if n == 0 {
+			if err == nil {
+				continue
 			}
-			nChunks++
-			nBytes += len(buf)
-
-			if _, err := writer.Write(buf); err != nil {
-				log.Println(err)
+			if err == io.EOF {
+				break
 			}
-
-			// process buf
-			if err != nil && err != io.EOF {
-				log.Fatal(err)
-			}
-
+			log.Fatal(err)
 		}
-		writer.Flush()
-	}(buf, writer, reader)
+		nChunks++
+		nBytes += len(buf)
 
-	time.Sleep(5 * time.Second)
+		if _, err := writer.Write(buf); err != nil {
+			log.Println(err)
+		}
+
+		// process buf
+		if err != nil && err != io.EOF {
+			log.Fatal(err)
+		}
+
+	}
+	writer.Flush()
+
 	downloadUrl := telegram.UploadToTelegram(fileName)
 
 	if _, err := w.Write([]byte(downloadUrl + "\n")); err != nil {
