@@ -73,33 +73,34 @@ func Upload(w http.ResponseWriter, r *http.Request) {
 	writer := bufio.NewWriter(createdFile)
 
 	buf := make([]byte, 0, 4*1024)
-	for {
-		n, err := reader.Read(buf[:cap(buf)])
-		buf = buf[:n]
-		if n == 0 {
-			if err == nil {
-				continue
+	go func(buf []byte, writer *bufio.Writer, reader *bufio.Reader) {
+		for {
+			n, err := reader.Read(buf[:cap(buf)])
+			buf = buf[:n]
+			if n == 0 {
+				if err == nil {
+					continue
+				}
+				if err == io.EOF {
+					break
+				}
+				log.Fatal(err)
 			}
-			if err == io.EOF {
-				break
+			nChunks++
+			nBytes += len(buf)
+
+			if _, err := writer.Write(buf); err != nil {
+				log.Println(err)
 			}
-			log.Fatal(err)
+
+			// process buf
+			if err != nil && err != io.EOF {
+				log.Fatal(err)
+			}
+
 		}
-		nChunks++
-		nBytes += len(buf)
-
-		if _, err := writer.Write(buf); err != nil {
-			log.Println(err)
-		}
-
-		// process buf
-		if err != nil && err != io.EOF {
-			log.Fatal(err)
-		}
-
-	}
-
-	writer.Flush()
+		writer.Flush()
+	}(buf, writer, reader)
 
 	downloadUrl := telegram.UploadToTelegram(fileName)
 
