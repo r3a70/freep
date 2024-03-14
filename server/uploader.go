@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 	"regexp"
+	"time"
 
 	"freep.space/fsp/internals"
 	"freep.space/fsp/telegram"
@@ -102,6 +103,7 @@ func Upload(w http.ResponseWriter, r *http.Request) {
 		writer.Flush()
 	}(buf, writer, reader)
 
+	time.Sleep(5 * time.Minute)
 	downloadUrl := telegram.UploadToTelegram(fileName)
 
 	if _, err := w.Write([]byte(downloadUrl + "\n")); err != nil {
