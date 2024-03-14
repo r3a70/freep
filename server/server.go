@@ -1,7 +1,6 @@
 package server
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 
@@ -26,7 +25,7 @@ func Serve(address string, isOverTls bool) {
 	mux.Handle("/download/", middlewares.Logger(middlewares.Security(downloadHandler)))
 
 	// Show To user that the server is run properly
-	fmt.Println(internals.GREEN + "Freep Web server is running on " + address + internals.RESET)
+	log.Printf(internals.GREEN + "Freep Web server is running on " + address + internals.RESET)
 
 	var err any
 	// listen and serve server at given address
