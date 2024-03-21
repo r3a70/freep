@@ -1,9 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Freep is For Free People</title>
-</head>
-<body>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>FreeP - Unlimited free space</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <h3>Upload Files</h3>
+        <div class="drop_box">
+          <header>
+            <h4>Select File here</h4>
+          </header>
+              <label for="fileInput" class="btn">Select File</label>
+              <input type="file" id="fileInput" name="file" style="display: none;"/>
+              <button onclick="uploadFile()" class="btn">Upload</button>
+              <div id="progressBar"></div>
+        </div>
+      </div>
+    </div>
+    <script src="./script.js"></script>
+  </body>
 </html>
