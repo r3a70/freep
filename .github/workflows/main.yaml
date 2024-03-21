@@ -1,0 +1,34 @@
+name: Freep CI/CD
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+
+  build_and_push:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v4
+
+  deploy:
+
+    needs: build_and_push
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: SSH to VPS
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.VPS_HOST }}
+        password: "${{ secrets.VPS_PASSWORD }}"
+        username: ${{ secrets.VPS_USERNAME }}
+        script: |
+          cd /root/freep
+          git pull origin main
+          go build .
