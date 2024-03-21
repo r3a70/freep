@@ -24,3 +24,6 @@ go.work
 tmp/
 downloads/
 .env
+.bin*
+fsp
+result
