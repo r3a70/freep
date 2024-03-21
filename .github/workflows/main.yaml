@@ -31,4 +31,4 @@ jobs:
         script: |
           cd /root/freep
           git pull origin main
-          go build .
+          /usr/local/go/bin/go build .
