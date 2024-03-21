@@ -18,14 +18,25 @@ func DownloadFromTelegram(fileID string) string {
 		log.Panic(err)
 	}
 
-	if res, err := bot.GetFile(tgbotapi.FileConfig{FileID: fileID}); err != nil {
+	filePath := make(chan string)
+	go func(filePath chan string) {
 
-		log.Println(err)
-		return ""
+		if res, err := bot.GetFile(tgbotapi.FileConfig{FileID: fileID}); err != nil {
 
-	} else {
+			log.Println(err)
 
-		return res.FilePath
+		} else {
+
+			filePath <- res.FilePath
+
+		}
+
+	}(filePath)
+
+	for {
+		select {
+		case <-filePath:
+			return <-filePath
+		}
 	}
-
 }
