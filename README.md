@@ -13,5 +13,5 @@ cd freep && go build . && ./frp
 Then your server starting on :8000.
 
 #### Task lists
-- [] (IP,PORT,SSLFILES) from command line.
-- [] Dockerzation
+- [ ] (IP,PORT,SSLFILES) from command line.
+- [ ] Dockerzation
