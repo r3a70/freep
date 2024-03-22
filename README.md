@@ -3,8 +3,8 @@
 ##### requirements
 1. Go installed on your machine
 2. a .env file. **You can find the necessary environment variables from .env.example file that is in root directory**
-3. Optionals
-⋅⋅* Build [telegram-bot-api](https://tdlib.github.io/telegram-bot-api/build.html) if you want to upload/download up 2GB or 4GB if you are a premium user.
+3. this section is Optionals 
+  * Build [telegram-bot-api](https://tdlib.github.io/telegram-bot-api/build.html) if you want to upload/download up 2GB or 4GB if you are a premium user.
 
 ##### Installation
 
