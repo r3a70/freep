@@ -2,7 +2,7 @@
 
 ##### requirements
 1. Go installed on your machine.
-2. Build [telegram-bot-api](https://tdlib.github.io/telegram-bot-api/build.html) ( Optionals if you want to up/dow up 2GB and 4GB if you are a premium user. )
+2. Build [telegram-bot-api](https://tdlib.github.io/telegram-bot-api/build.html) .Optionals if you want to upload/download up 2GB or 4GB if you are a premium user.
 3. a .env file. **You can find necessary envs from .env.example file**
 
 ##### Installation
