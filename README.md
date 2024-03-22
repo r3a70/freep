@@ -14,6 +14,15 @@ cd freep && go build . && ./frp
 Then your server starting on :8000.
 
 #### Task lists
-- [ ] Read ip, port and ssl-certs from command line.
+- [ ] Get ip, port and ssl-certs from command line.
 - [ ] Dockerization.
 - [ ] Replace third-party telegram lib with Self-Write lib.
+
+
+#### Contribution
+Rules are very simple and straightforward.
+1. fork repository 
+2. change code
+3. push and then submit pull request
+
+### Note that work only in develop branch
