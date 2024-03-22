@@ -14,4 +14,5 @@ Then your server starting on :8000.
 
 #### Task lists
 - [ ] (IP,PORT,SSLFILES) from command line.
-- [ ] Dockerzation
+- [ ] Dockerization.
+- [ ] Replace third-party telegram lib with Self-Write lib.
