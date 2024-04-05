@@ -4,8 +4,8 @@ import (
 	"log"
 	"net/http"
 
-	"freep.space/fsp/internals"
-	"freep.space/fsp/middlewares"
+	"freep.space/fsp/internals/constant"
+	"freep.space/fsp/internals/middlewares"
 )
 
 func Serve(address string, isOverTls bool) {
@@ -25,7 +25,7 @@ func Serve(address string, isOverTls bool) {
 	mux.Handle("/download/", middlewares.Logger(middlewares.Security(downloadHandler)))
 
 	// Show To user that the server is run properly
-	log.Printf(internals.GREEN + "Freep Web server is running on " + address + internals.RESET)
+	log.Printf(constant.GREEN + "Freep Web server is running on " + address + constant.RESET)
 
 	var err any
 	// listen and serve server at given address
@@ -35,6 +35,6 @@ func Serve(address string, isOverTls bool) {
 		err = http.ListenAndServe(address, mux)
 	}
 	if err != nil {
-		log.Fatalf(internals.RED+"There was a problem while running Freep server. the error is %v\n"+internals.RESET, err)
+		log.Fatalf(constant.RED+"There was a problem while running Freep server. the error is %v\n"+constant.RESET, err)
 	}
 }

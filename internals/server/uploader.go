@@ -9,8 +9,8 @@ import (
 	"os"
 	"regexp"
 
-	"freep.space/fsp/internals"
-	"freep.space/fsp/telegram"
+	"freep.space/fsp/internals/constant"
+	"freep.space/fsp/internals/telegram"
 	"github.com/google/uuid"
 )
 
@@ -26,15 +26,15 @@ func Upload(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if r.ContentLength > internals.ALLOW_FILE_SZIE {
+	if r.ContentLength > constant.ALLOW_FILE_SZIE {
 		w.WriteHeader(http.StatusForbidden)
-		if _, err := w.Write([]byte("Allowed size is " + fmt.Sprint(internals.ALLOW_FILE_SZIE/1024/1024, "MB\n"))); err != nil {
+		if _, err := w.Write([]byte("Allowed size is " + fmt.Sprint(constant.ALLOW_FILE_SZIE/1024/1024, "MB\n"))); err != nil {
 			log.Println(err)
 		}
 		return
 	}
 
-	if err := r.ParseMultipartForm(internals.MULTY_PART_MAX_SIZE); err != nil {
+	if err := r.ParseMultipartForm(constant.MULTY_PART_MAX_SIZE); err != nil {
 	}
 
 	var formFile string
