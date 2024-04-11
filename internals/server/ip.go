@@ -2,7 +2,6 @@ package server
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 )
 
@@ -12,10 +11,8 @@ type response struct {
 
 func Ip(w http.ResponseWriter, r *http.Request) {
 
-	fmt.Println(r.Header)
-
 	ipAddr := response{
-		IpAddr: r.RemoteAddr,
+		IpAddr: r.Header.Get("X-Real-Ip"),
 	}
 
 	w.Header().Add("application", "json")
