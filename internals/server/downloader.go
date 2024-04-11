@@ -8,7 +8,7 @@ import (
 	"os"
 	"strings"
 
-	"freep.space/fsp/telegram"
+	"freep.space/fsp/internals/telegram"
 )
 
 func Download(w http.ResponseWriter, r *http.Request) {

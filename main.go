@@ -4,7 +4,7 @@ import (
 	"log"
 	"os"
 
-	"freep.space/fsp/server"
+	"freep.space/fsp/internals/server"
 	"github.com/joho/godotenv"
 )
 
