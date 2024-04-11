@@ -12,7 +12,7 @@ type response struct {
 func Ip(w http.ResponseWriter, r *http.Request) {
 
 	ipAddr := response{
-		IpAddr: r.RemoteAddr,
+		IpAddr: r.Header.Get("X-Real-Ip"),
 	}
 
 	w.Header().Add("application", "json")
