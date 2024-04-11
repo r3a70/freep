@@ -18,11 +18,13 @@ func Serve(address string, isOverTls bool) {
 	// Add handlers
 	uploadHandler := http.HandlerFunc(Upload)
 	downloadHandler := http.HandlerFunc(Download)
+	ipHandler := http.HandlerFunc(Ip)
 
 	// Registering Handlers
 	mux.Handle("/", middlewares.Logger(middlewares.Security(homePage)))
 	mux.Handle("/upload", middlewares.Logger(middlewares.Security(uploadHandler)))
 	mux.Handle("/download/", middlewares.Logger(middlewares.Security(downloadHandler)))
+	mux.Handle("/ip", middlewares.Logger(middlewares.Security(ipHandler)))
 
 	// Show To user that the server is run properly
 	log.Printf(constant.GREEN + "Freep Web server is running on " + address + constant.RESET)
