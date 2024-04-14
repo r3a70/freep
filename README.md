@@ -15,9 +15,10 @@ cd freep && go build . && ./frp
 Then your server starting on :8000.
 
 #### Task lists
-- [ ] Get ip, port and ssl-certs from command line.
+- [x] Get ip, port and ssl-certs from command line.
 - [ ] Dockerization.
-- [ ] Replace third-party telegram lib with Self-Write lib.
+- [ ] Improvement.
+- [ ] Replace third-party telegram lib with Self-Written lib.
 
 
 #### Contribution
