@@ -8,7 +8,14 @@ import (
 	"freep.space/fsp/internals/middlewares"
 )
 
-func Serve(address string, isOverTls bool) {
+type Config struct {
+	Address   string
+	IsOverTls bool
+	CertFile  string
+	KeyFile   string
+}
+
+func (c Config) Run() {
 
 	mux := http.NewServeMux()
 
@@ -27,14 +34,14 @@ func Serve(address string, isOverTls bool) {
 	mux.Handle("/ip", middlewares.Logger(middlewares.Security(ipHandler)))
 
 	// Show To user that the server is run properly
-	log.Printf(constant.GREEN + "Freep Web server is running on " + address + constant.RESET)
+	log.Printf(constant.GREEN + "Freep Web server is running on " + c.Address + constant.RESET)
 
 	var err any
 	// listen and serve server at given address
-	if isOverTls {
-		err = http.ListenAndServeTLS(address, "freep.space.crt", "freep.space.key", mux)
+	if c.IsOverTls {
+		err = http.ListenAndServeTLS(c.Address, c.CertFile, c.KeyFile, mux)
 	} else {
-		err = http.ListenAndServe(address, mux)
+		err = http.ListenAndServe(c.Address, mux)
 	}
 	if err != nil {
 		log.Fatalf(constant.RED+"There was a problem while running Freep server. the error is %v\n"+constant.RESET, err)
