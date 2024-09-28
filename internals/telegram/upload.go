@@ -1,7 +1,6 @@
 package telegram
 
 import (
-	"fmt"
 	"log"
 	"os"
 
@@ -17,11 +16,9 @@ func UploadToTelegram(file string) string {
 	if err != nil {
 		log.Panic(err)
 	}
-	fmt.Println(">>>>>>>>>>>>>>>>>>>>", bot)
 
 	newFile := tgbotapi.FilePath(file)
 	newDoc := tgbotapi.NewDocument(1302633753, newFile)
-	fmt.Println("--------------->>>>>>>>>>> ", newDoc)
 	if res, err := bot.Send(newDoc); err != nil {
 		log.Println(err)
 	} else {
