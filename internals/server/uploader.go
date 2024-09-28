@@ -99,10 +99,10 @@ func Upload(w http.ResponseWriter, r *http.Request) {
 
 	}
 	writer.Flush()
-	fmt.Println("============================")
 
 	downloadUrl := telegram.UploadToTelegram(fileName)
 
+	fmt.Println("============================")
 	if _, err := w.Write([]byte(downloadUrl + "\n")); err != nil {
 		log.Println(err)
 	}
