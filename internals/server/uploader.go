@@ -16,7 +16,6 @@ import (
 
 func Upload(w http.ResponseWriter, r *http.Request) {
 
-	fmt.Println("============================")
 	defer r.Body.Close()
 
 	if r.Method != "POST" {
@@ -61,6 +60,7 @@ func Upload(w http.ResponseWriter, r *http.Request) {
 	defer file.Close()
 
 	var nBytes, nChunks int = 0, 0
+	fmt.Println("============================")
 
 	rg := regexp.MustCompile(`[^A-Za-z0-9.-_]`)
 	fileName := "./downloads/" + uuid.New().String() + "_" + rg.ReplaceAllString(headers.Filename, "_")
