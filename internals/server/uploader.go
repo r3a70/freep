@@ -60,6 +60,7 @@ func Upload(w http.ResponseWriter, r *http.Request) {
 	defer file.Close()
 
 	var nBytes, nChunks int = 0, 0
+	fmt.Println("============================")
 
 	rg := regexp.MustCompile(`[^A-Za-z0-9.-_]`)
 	fileName := "./downloads/" + uuid.New().String() + "_" + rg.ReplaceAllString(headers.Filename, "_")
@@ -99,8 +100,6 @@ func Upload(w http.ResponseWriter, r *http.Request) {
 
 	}
 	writer.Flush()
-
-	fmt.Println("============================")
 
 	downloadUrl := telegram.UploadToTelegram(fileName)
 
