@@ -1,0 +1,19 @@
+services:
+  fsp:
+    container_name: freep
+    image: ram3a9670/freep:latest
+    restart: always
+    command: >
+      bash -c "./fsp"
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    networks:
+      - default
+
+
+networks:
+  default:
+    name: surentm
+    external: true
