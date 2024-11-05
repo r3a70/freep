@@ -1,8 +1,8 @@
-FROM go:1.23
+FROM golang:1.23.2
 
 WORKDIR /app
 
-copy . /app
+COPY . /app
 
 RUN go build .
 
