@@ -1,4 +1,4 @@
-FROM go:1.23.2
+FROM go:1.23
 
 WORKDIR /app
 
