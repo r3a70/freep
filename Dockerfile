@@ -4,6 +4,6 @@ WORKDIR /app
 
 COPY . /app
 
-RUN go build -o fsp .
+RUN go build -o /build/fsp .
 
 EXPOSE 8000
