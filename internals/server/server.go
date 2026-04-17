@@ -16,7 +16,6 @@ type Config struct {
 }
 
 func (c Config) Run() {
-
 	mux := http.NewServeMux()
 
 	// Serving Static files
