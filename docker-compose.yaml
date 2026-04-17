@@ -4,7 +4,7 @@ services:
     image: ram3a9670/freep:latest
     restart: always
     command: >
-      bash -c "./build/fsp"
+      bash -c "/build/fsp"
     volumes:
       - .:/app
     ports:
