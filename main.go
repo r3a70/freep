@@ -11,7 +11,6 @@ import (
 )
 
 func main() {
-
 	var config server.Config
 
 	flag.StringVar(&config.Address, "addr", ":8000", "Address and Port the freep server should listen on")
@@ -34,10 +33,9 @@ func main() {
 	}
 
 	if _, err := os.Stat("./downloads"); os.IsNotExist(err) {
-		if err := os.Mkdir("downloads", 0755); err != nil {
+		if err := os.Mkdir("downloads", 0o755); err != nil {
 			log.Println(err)
 		}
 	}
 	config.Run()
-
 }
